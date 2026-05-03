@@ -20,7 +20,7 @@ This tool allows you to:
 
 ### C# Version (.NET 8)
 - Full console application with rich features
-- Windows Forms UI (coming soon)
+- Windows Forms UI with batch processing
 - Advanced configuration and dependency injection
 - Better suited for integration and automation
 
@@ -220,7 +220,7 @@ ADAVoiceCreator/
 │   │   ├── Services/       # TTS and other services
 │   │   └── Interfaces/     # Service interfaces
 │   ├── ADAVoice.Console/   # Console application
-│   └── ADAVoice.UI/        # Windows Forms (coming soon)
+│   └── ADAVoice.UI/        # Windows Forms UI
 ├── .env.sample             # Environment template
 ├── appsettings.json        # C# configuration
 └── sample_phrases.txt      # Sample batch file
