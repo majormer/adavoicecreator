@@ -36,6 +36,10 @@ jobs:
       run: |
         dotnet publish ADAVoice.Console/ADAVoice.Console.csproj -c Release -r ${{ matrix.rid }} --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o publish/${{ matrix.output }}
 
+    - name: Copy .env.sample
+      run: |
+        cp .env.sample publish/${{ matrix.output }}/
+
     - name: Create Archive (Windows)
       if: matrix.os == 'windows-latest'
       run: |
@@ -77,6 +81,10 @@ jobs:
     - name: Build UI App
       run: |
         dotnet publish ADAVoice.UI/ADAVoice.UI.csproj -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o publish/ADAVoiceUI-Windows
+
+    - name: Copy .env.sample
+      run: |
+        Copy-Item .env.sample publish/ADAVoiceUI-Windows/
 
     - name: Create Archive
       run: |
@@ -150,5 +158,8 @@ jobs:
           
           ### Credential Security
           Your Google Cloud credentials are never bundled with the application. You must provide your own credentials file, and it never leaves your machine.
+          
+          ### VirusTotal False Positives
+          Self-contained .NET executables may occasionally trigger false positives on virus scanners like VirusTotal. This is a known issue with self-contained .NET applications and does not indicate actual malware. The source code is fully available on GitHub for review.
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
