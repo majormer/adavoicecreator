@@ -103,15 +103,24 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         path: artifacts
+        pattern: '*'
+        merge-multiple: false
+
+    - name: Move Artifacts to Root
+      run: |
+        mv artifacts/ADAVoiceConsole-Windows/ADAVoiceConsole-Windows.zip ./
+        mv artifacts/ADAVoiceConsole-Linux/ADAVoiceConsole-Linux.tar.gz ./
+        mv artifacts/ADAVoiceConsole-macOS/ADAVoiceConsole-macOS.tar.gz ./
+        mv artifacts/ADAVoiceUI-Windows/ADAVoiceUI-Windows.zip ./
 
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          artifacts/ADAVoiceConsole-Windows.zip
-          artifacts/ADAVoiceConsole-Linux.tar.gz
-          artifacts/ADAVoiceConsole-macOS.tar.gz
-          artifacts/ADAVoiceUI-Windows.zip
+          ADAVoiceConsole-Windows.zip
+          ADAVoiceConsole-Linux.tar.gz
+          ADAVoiceConsole-macOS.tar.gz
+          ADAVoiceUI-Windows.zip
         draft: false
         prerelease: false
         generate_release_notes: true
