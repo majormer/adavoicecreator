@@ -257,14 +257,14 @@ namespace ADAVoice.UI
             {
                 Text = _outputDirectory,
                 Location = new Point(controlX, y),
-                Size = new Size(245, 25),
+                Size = new Size(235, 25),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
             btnBrowseDir = new Button
             {
                 Text = "...",
                 Location = new Point(btnX, y),
-                Size = new Size(35, 25),
+                Size = new Size(45, 25),
                 Anchor = AnchorStyles.Top | AnchorStyles.Right
             };
             btnBrowseDir.Click += BtnBrowseDir_Click;
