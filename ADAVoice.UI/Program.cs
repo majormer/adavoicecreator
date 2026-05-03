@@ -75,8 +75,21 @@ static class Program
         
         // Services
         services.AddSingleton<ConfigurationService>();
-        services.AddSingleton<GoogleCloudTTSService>();
-        services.AddSingleton<ITTSService>(provider => provider.GetRequiredService<GoogleCloudTTSService>());
+        
+        // Try to initialize Google Cloud TTS service, fall back to null service if credentials invalid
+        services.AddSingleton<ITTSService>(sp => {
+            try {
+                var config = sp.GetRequiredService<AppConfig>();
+                var logger = sp.GetRequiredService<ILogger<GoogleCloudTTSService>>();
+                return new GoogleCloudTTSService(config, logger);
+            } catch {
+                // Return null service if credentials not configured
+                return sp.GetRequiredService<NullTSService>();
+            }
+        });
+        
+        services.AddSingleton<GoogleCloudTTSService>(sp => sp.GetRequiredService<ITTSService>() as GoogleCloudTTSService);
+        services.AddSingleton<NullTSService>();
         services.AddSingleton<CostTrackingService>();
         services.AddSingleton<ICostTrackingService>(provider => provider.GetRequiredService<CostTrackingService>());
         services.AddSingleton<AudioConversionService>();
