@@ -314,15 +314,15 @@ namespace ADAVoice.UI
             {
                 Text = "Estimate",
                 Location = new Point(120, y),
-                Size = new Size(85, 35)
+                Size = new Size(100, 35)
             };
             btnEstimate.Click += BtnEstimate_Click;
 
             btnBatch = new Button
             {
                 Text = "Batch",
-                Location = new Point(213, y),
-                Size = new Size(85, 35)
+                Location = new Point(230, y),
+                Size = new Size(100, 35)
             };
             btnBatch.Click += BtnBatch_Click;
 
