@@ -99,5 +99,7 @@ static class Program
         
         // Forms
         services.AddSingleton<MainForm>();
+        services.AddSingleton<SettingsForm>();
+        services.AddSingleton<BatchForm>();
     }
 }
