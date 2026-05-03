@@ -72,8 +72,8 @@ namespace ADAVoice.UI
 
             // Form properties
             this.Text = "ADA Voice Creator";
-            this.Size = new Size(1080, 760);
-            this.MinimumSize = new Size(1000, 700);
+            this.Size = new Size(1140, 820);
+            this.MinimumSize = new Size(1040, 760);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = FicsitBackground;
             this.ForeColor = FicsitText;
@@ -95,15 +95,15 @@ namespace ADAVoice.UI
             grpInput = new GroupBox
             {
                 Text = "Text Input",
-                Location = new Point(16, 16),
-                Size = new Size(1032, 190),
+                Location = new Point(18, 16),
+                Size = new Size(1088, 220),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
 
             var lblText = new Label
             {
                 Text = "Enter text to convert to ADA voice:",
-                Location = new Point(14, 26),
+                Location = new Point(18, 28),
                 AutoSize = true
             };
 
@@ -111,8 +111,8 @@ namespace ADAVoice.UI
             {
                 Multiline = true,
                 ScrollBars = ScrollBars.Vertical,
-                Location = new Point(14, 50),
-                Size = new Size(1004, 108),
+                Location = new Point(18, 56),
+                Size = new Size(1052, 130),
                 Font = new Font("Segoe UI", 10F),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
@@ -120,7 +120,7 @@ namespace ADAVoice.UI
             lblCharCount = new Label
             {
                 Text = "Characters: 0",
-                Location = new Point(14, 164),
+                Location = new Point(18, 192),
                 AutoSize = true,
                 ForeColor = FicsitMutedText
             };
@@ -136,23 +136,23 @@ namespace ADAVoice.UI
             grpVoice = new GroupBox
             {
                 Text = "Voice Settings",
-                Location = new Point(16, 218),
-                Size = new Size(440, 220),
+                Location = new Point(18, 254),
+                Size = new Size(470, 250),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left
             };
 
-            int y = 30;
-            int labelX = 14;
-            int controlX = 130;
-            int valueX = 375;
-            int rowHeight = 34;
+            int y = 36;
+            int labelX = 18;
+            int controlX = 145;
+            int valueX = 400;
+            int rowHeight = 42;
 
             // Speaking Rate
             var lblRate = new Label { Text = "Speaking Rate:", Location = new Point(labelX, y + 3), AutoSize = true };
             trackRate = new TrackBar
             {
                 Minimum = 25, Maximum = 400, Value = 95,
-                Location = new Point(controlX, y), Size = new Size(220, 28),
+                Location = new Point(controlX, y), Size = new Size(240, 32),
                 TickStyle = TickStyle.None, AutoSize = false
             };
             lblRateValue = new Label { Text = "0.95", Location = new Point(valueX, y + 3), AutoSize = true };
@@ -165,7 +165,7 @@ namespace ADAVoice.UI
             trackPitch = new TrackBar
             {
                 Minimum = -200, Maximum = 200, Value = 0,
-                Location = new Point(controlX, y), Size = new Size(220, 28),
+                Location = new Point(controlX, y), Size = new Size(240, 32),
                 TickStyle = TickStyle.None, AutoSize = false
             };
             lblPitchValue = new Label { Text = "0.0", Location = new Point(valueX, y + 3), AutoSize = true };
@@ -178,7 +178,7 @@ namespace ADAVoice.UI
             trackVolume = new TrackBar
             {
                 Minimum = -96, Maximum = 16, Value = 0,
-                Location = new Point(controlX, y), Size = new Size(220, 28),
+                Location = new Point(controlX, y), Size = new Size(240, 32),
                 TickStyle = TickStyle.None, AutoSize = false
             };
             lblVolumeValue = new Label { Text = "0.0", Location = new Point(valueX, y + 3), AutoSize = true };
@@ -192,7 +192,7 @@ namespace ADAVoice.UI
             {
                 DropDownStyle = ComboBoxStyle.DropDownList,
                 Location = new Point(controlX, y),
-                Size = new Size(280, 28)
+                Size = new Size(300, 32)
             };
             cmbVoice.Items.AddRange(new object[] {
                 "en-US-Wavenet-C (Female)",
@@ -219,16 +219,16 @@ namespace ADAVoice.UI
             grpOutput = new GroupBox
             {
                 Text = "Output Settings",
-                Location = new Point(470, 218),
-                Size = new Size(578, 220),
+                Location = new Point(504, 254),
+                Size = new Size(602, 250),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
 
-            int y = 30;
-            int labelX = 14;
-            int controlX = 124;
-            int btnX = 466;
-            int rowHeight = 38;
+            int y = 36;
+            int labelX = 18;
+            int controlX = 140;
+            int btnX = 470;
+            int rowHeight = 46;
 
             // Format
             var lblFormat = new Label { Text = "Format:", Location = new Point(labelX, y + 3), AutoSize = true };
@@ -236,7 +236,7 @@ namespace ADAVoice.UI
             {
                 DropDownStyle = ComboBoxStyle.DropDownList,
                 Location = new Point(controlX, y),
-                Size = new Size(120, 28)
+                Size = new Size(130, 32)
             };
             cmbFormat.Items.AddRange(new object[] { "MP3", "WAV", "OGG" });
             cmbFormat.SelectedIndex = 0;
@@ -248,14 +248,14 @@ namespace ADAVoice.UI
             txtOutputFile = new TextBox
             {
                 Location = new Point(controlX, y),
-                Size = new Size(330, 28),
+                Size = new Size(315, 32),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
             btnBrowse = new Button
             {
                 Text = "Browse",
                 Location = new Point(btnX, y),
-                Size = new Size(90, 28),
+                Size = new Size(112, 36),
                 Anchor = AnchorStyles.Top | AnchorStyles.Right
             };
             btnBrowse.Click += BtnBrowse_Click;
@@ -268,14 +268,14 @@ namespace ADAVoice.UI
             {
                 Text = _outputDirectory,
                 Location = new Point(controlX, y),
-                Size = new Size(330, 28),
+                Size = new Size(315, 32),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
             btnBrowseDir = new Button
             {
                 Text = "Browse",
                 Location = new Point(btnX, y),
-                Size = new Size(90, 28),
+                Size = new Size(112, 36),
                 Anchor = AnchorStyles.Top | AnchorStyles.Right
             };
             btnBrowseDir.Click += BtnBrowseDir_Click;
@@ -307,13 +307,13 @@ namespace ADAVoice.UI
 
         private void CreateActionSection()
         {
-            int y = 454;
+            int y = 526;
 
             btnGenerate = new Button
             {
                 Text = "Generate",
-                Location = new Point(16, y),
-                Size = new Size(120, 42),
+                Location = new Point(18, y),
+                Size = new Size(140, 48),
                 BackColor = FicsitOrange,
                 ForeColor = FicsitInput,
                 FlatStyle = FlatStyle.Flat,
@@ -324,24 +324,24 @@ namespace ADAVoice.UI
             btnEstimate = new Button
             {
                 Text = "Estimate",
-                Location = new Point(148, y),
-                Size = new Size(120, 42)
+                Location = new Point(172, y),
+                Size = new Size(140, 48)
             };
             btnEstimate.Click += BtnEstimate_Click;
 
             btnBatch = new Button
             {
                 Text = "Batch",
-                Location = new Point(280, y),
-                Size = new Size(120, 42)
+                Location = new Point(326, y),
+                Size = new Size(140, 48)
             };
             btnBatch.Click += BtnBatch_Click;
 
             btnSettings = new Button
             {
                 Text = "Settings",
-                Location = new Point(928, y),
-                Size = new Size(120, 42),
+                Location = new Point(966, y),
+                Size = new Size(140, 48),
                 Anchor = AnchorStyles.Top | AnchorStyles.Right
             };
             btnSettings.Click += BtnSettings_Click;
@@ -354,29 +354,29 @@ namespace ADAVoice.UI
             grpStatus = new GroupBox
             {
                 Text = "Status",
-                Location = new Point(16, 510),
-                Size = new Size(1032, 190),
+                Location = new Point(18, 590),
+                Size = new Size(1088, 190),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom
             };
 
             lblStatus = new Label
             {
                 Text = "Ready",
-                Location = new Point(14, 28),
+                Location = new Point(18, 32),
                 AutoSize = true
             };
 
             progressBar = new ProgressBar
             {
-                Location = new Point(14, 62),
-                Size = new Size(1004, 28),
+                Location = new Point(18, 68),
+                Size = new Size(1052, 30),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
 
             lblCostInfo = new Label
             {
                 Text = "Cost: $0.000000",
-                Location = new Point(14, 104),
+                Location = new Point(18, 116),
                 AutoSize = true,
                 Font = new Font("Segoe UI", 10F, FontStyle.Bold)
             };
@@ -384,8 +384,8 @@ namespace ADAVoice.UI
             lblLastOutput = new Label
             {
                 Text = "Last output: None",
-                Location = new Point(14, 134),
-                Size = new Size(1004, 40),
+                Location = new Point(18, 148),
+                Size = new Size(1052, 28),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom
             };
 
