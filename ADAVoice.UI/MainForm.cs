@@ -10,6 +10,13 @@ namespace ADAVoice.UI
         private readonly ADAVoiceService _adaVoiceService;
         private readonly ILogger<MainForm> _logger;
         private readonly string _outputDirectory = "output";
+        private static readonly Color FicsitBackground = Color.FromArgb(28, 30, 32);
+        private static readonly Color FicsitPanel = Color.FromArgb(39, 42, 45);
+        private static readonly Color FicsitInput = Color.FromArgb(18, 20, 22);
+        private static readonly Color FicsitOrange = Color.FromArgb(255, 132, 0);
+        private static readonly Color FicsitText = Color.FromArgb(236, 239, 241);
+        private static readonly Color FicsitMutedText = Color.FromArgb(174, 179, 184);
+        private static readonly Color FicsitBorder = Color.FromArgb(82, 86, 90);
 
         // Controls
         private GroupBox grpInput = null!;
@@ -65,15 +72,19 @@ namespace ADAVoice.UI
 
             // Form properties
             this.Text = "ADA Voice Creator";
-            this.Size = new Size(850, 720);
-            this.MinimumSize = new Size(750, 620);
+            this.Size = new Size(980, 760);
+            this.MinimumSize = new Size(900, 700);
             this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = FicsitBackground;
+            this.ForeColor = FicsitText;
+            this.Font = new Font("Segoe UI", 10F);
 
             CreateInputSection();
             CreateVoiceSettingsSection();
             CreateOutputSection();
             CreateActionSection();
             CreateStatusSection();
+            ApplySatisfactoryTheme();
 
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -84,15 +95,15 @@ namespace ADAVoice.UI
             grpInput = new GroupBox
             {
                 Text = "Text Input",
-                Location = new Point(12, 12),
-                Size = new Size(810, 180),
+                Location = new Point(16, 16),
+                Size = new Size(932, 190),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
 
             var lblText = new Label
             {
                 Text = "Enter text to convert to ADA voice:",
-                Location = new Point(10, 22),
+                Location = new Point(14, 26),
                 AutoSize = true
             };
 
@@ -100,8 +111,8 @@ namespace ADAVoice.UI
             {
                 Multiline = true,
                 ScrollBars = ScrollBars.Vertical,
-                Location = new Point(10, 42),
-                Size = new Size(790, 105),
+                Location = new Point(14, 50),
+                Size = new Size(904, 108),
                 Font = new Font("Segoe UI", 10F),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
@@ -109,9 +120,9 @@ namespace ADAVoice.UI
             lblCharCount = new Label
             {
                 Text = "Characters: 0",
-                Location = new Point(10, 152),
+                Location = new Point(14, 164),
                 AutoSize = true,
-                ForeColor = Color.Gray
+                ForeColor = FicsitMutedText
             };
 
             grpInput.Controls.AddRange(new Control[] { lblText, txtInput, lblCharCount });
@@ -125,23 +136,23 @@ namespace ADAVoice.UI
             grpVoice = new GroupBox
             {
                 Text = "Voice Settings",
-                Location = new Point(12, 200),
-                Size = new Size(400, 200),
+                Location = new Point(16, 218),
+                Size = new Size(430, 220),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left
             };
 
-            int y = 22;
-            int labelX = 10;
-            int controlX = 115;
-            int valueX = 330;
-            int rowHeight = 28;
+            int y = 30;
+            int labelX = 14;
+            int controlX = 130;
+            int valueX = 365;
+            int rowHeight = 34;
 
             // Speaking Rate
             var lblRate = new Label { Text = "Speaking Rate:", Location = new Point(labelX, y + 3), AutoSize = true };
             trackRate = new TrackBar
             {
                 Minimum = 25, Maximum = 400, Value = 95,
-                Location = new Point(controlX, y), Size = new Size(200, 25),
+                Location = new Point(controlX, y), Size = new Size(220, 28),
                 TickStyle = TickStyle.None, AutoSize = false
             };
             lblRateValue = new Label { Text = "0.95", Location = new Point(valueX, y + 3), AutoSize = true };
@@ -154,7 +165,7 @@ namespace ADAVoice.UI
             trackPitch = new TrackBar
             {
                 Minimum = -200, Maximum = 200, Value = 0,
-                Location = new Point(controlX, y), Size = new Size(200, 25),
+                Location = new Point(controlX, y), Size = new Size(220, 28),
                 TickStyle = TickStyle.None, AutoSize = false
             };
             lblPitchValue = new Label { Text = "0.0", Location = new Point(valueX, y + 3), AutoSize = true };
@@ -167,7 +178,7 @@ namespace ADAVoice.UI
             trackVolume = new TrackBar
             {
                 Minimum = -96, Maximum = 16, Value = 0,
-                Location = new Point(controlX, y), Size = new Size(200, 25),
+                Location = new Point(controlX, y), Size = new Size(220, 28),
                 TickStyle = TickStyle.None, AutoSize = false
             };
             lblVolumeValue = new Label { Text = "0.0", Location = new Point(valueX, y + 3), AutoSize = true };
@@ -181,7 +192,7 @@ namespace ADAVoice.UI
             {
                 DropDownStyle = ComboBoxStyle.DropDownList,
                 Location = new Point(controlX, y),
-                Size = new Size(220, 25)
+                Size = new Size(270, 28)
             };
             cmbVoice.Items.AddRange(new object[] {
                 "en-US-Wavenet-C (Female)",
@@ -208,16 +219,16 @@ namespace ADAVoice.UI
             grpOutput = new GroupBox
             {
                 Text = "Output Settings",
-                Location = new Point(420, 200),
-                Size = new Size(402, 200),
+                Location = new Point(458, 218),
+                Size = new Size(490, 220),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
 
-            int y = 25;
-            int labelX = 10;
-            int controlX = 95;
-            int btnX = 350;
-            int rowHeight = 35;
+            int y = 30;
+            int labelX = 14;
+            int controlX = 124;
+            int btnX = 430;
+            int rowHeight = 38;
 
             // Format
             var lblFormat = new Label { Text = "Format:", Location = new Point(labelX, y + 3), AutoSize = true };
@@ -225,7 +236,7 @@ namespace ADAVoice.UI
             {
                 DropDownStyle = ComboBoxStyle.DropDownList,
                 Location = new Point(controlX, y),
-                Size = new Size(100, 25)
+                Size = new Size(120, 28)
             };
             cmbFormat.Items.AddRange(new object[] { "MP3", "WAV", "OGG" });
             cmbFormat.SelectedIndex = 0;
@@ -237,14 +248,14 @@ namespace ADAVoice.UI
             txtOutputFile = new TextBox
             {
                 Location = new Point(controlX, y),
-                Size = new Size(245, 25),
+                Size = new Size(294, 28),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
             btnBrowse = new Button
             {
                 Text = "...",
                 Location = new Point(btnX, y),
-                Size = new Size(35, 25),
+                Size = new Size(42, 28),
                 Anchor = AnchorStyles.Top | AnchorStyles.Right
             };
             btnBrowse.Click += BtnBrowse_Click;
@@ -257,14 +268,14 @@ namespace ADAVoice.UI
             {
                 Text = _outputDirectory,
                 Location = new Point(controlX, y),
-                Size = new Size(235, 25),
+                Size = new Size(294, 28),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
             btnBrowseDir = new Button
             {
                 Text = "...",
                 Location = new Point(btnX, y),
-                Size = new Size(45, 25),
+                Size = new Size(42, 28),
                 Anchor = AnchorStyles.Top | AnchorStyles.Right
             };
             btnBrowseDir.Click += BtnBrowseDir_Click;
@@ -296,41 +307,41 @@ namespace ADAVoice.UI
 
         private void CreateActionSection()
         {
-            int y = 410;
+            int y = 454;
 
             btnGenerate = new Button
             {
                 Text = "Generate",
-                Location = new Point(12, y),
-                Size = new Size(100, 35),
-                BackColor = Color.FromArgb(0, 120, 215),
-                ForeColor = Color.White,
+                Location = new Point(16, y),
+                Size = new Size(120, 42),
+                BackColor = FicsitOrange,
+                ForeColor = FicsitInput,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 9F, FontStyle.Bold)
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold)
             };
             btnGenerate.Click += BtnGenerate_Click;
 
             btnEstimate = new Button
             {
                 Text = "Estimate",
-                Location = new Point(120, y),
-                Size = new Size(100, 35)
+                Location = new Point(148, y),
+                Size = new Size(120, 42)
             };
             btnEstimate.Click += BtnEstimate_Click;
 
             btnBatch = new Button
             {
                 Text = "Batch",
-                Location = new Point(230, y),
-                Size = new Size(100, 35)
+                Location = new Point(280, y),
+                Size = new Size(120, 42)
             };
             btnBatch.Click += BtnBatch_Click;
 
             btnSettings = new Button
             {
                 Text = "Settings",
-                Location = new Point(722, y),
-                Size = new Size(100, 35),
+                Location = new Point(828, y),
+                Size = new Size(120, 42),
                 Anchor = AnchorStyles.Top | AnchorStyles.Right
             };
             btnSettings.Click += BtnSettings_Click;
@@ -343,43 +354,121 @@ namespace ADAVoice.UI
             grpStatus = new GroupBox
             {
                 Text = "Status",
-                Location = new Point(12, 455),
-                Size = new Size(810, 195),
+                Location = new Point(16, 510),
+                Size = new Size(932, 190),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom
             };
 
             lblStatus = new Label
             {
                 Text = "Ready",
-                Location = new Point(10, 22),
+                Location = new Point(14, 28),
                 AutoSize = true
             };
 
             progressBar = new ProgressBar
             {
                 Location = new Point(10, 45),
-                Size = new Size(790, 25),
+                Size = new Size(904, 28),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
 
             lblCostInfo = new Label
             {
                 Text = "Cost: $0.000000",
-                Location = new Point(10, 80),
+                Location = new Point(14, 86),
                 AutoSize = true,
-                Font = new Font("Segoe UI", 9F, FontStyle.Bold)
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold)
             };
 
             lblLastOutput = new Label
             {
                 Text = "Last output: None",
-                Location = new Point(10, 105),
-                Size = new Size(790, 80),
+                Location = new Point(14, 116),
+                Size = new Size(904, 58),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom
             };
 
             grpStatus.Controls.AddRange(new Control[] { lblStatus, progressBar, lblCostInfo, lblLastOutput });
             this.Controls.Add(grpStatus);
+        }
+
+        private void ApplySatisfactoryTheme()
+        {
+            foreach (Control control in this.Controls)
+            {
+                ApplyTheme(control);
+            }
+
+            StyleButton(btnGenerate, true);
+            StyleButton(btnEstimate, false);
+            StyleButton(btnBatch, false);
+            StyleButton(btnSettings, false);
+            StyleButton(btnBrowse, false);
+            StyleButton(btnBrowseDir, false);
+
+            lblCharCount.ForeColor = FicsitMutedText;
+            lblCostInfo.ForeColor = FicsitOrange;
+            progressBar.ForeColor = FicsitOrange;
+        }
+
+        private void ApplyTheme(Control control)
+        {
+            control.ForeColor = FicsitText;
+
+            if (control is GroupBox)
+            {
+                control.BackColor = FicsitPanel;
+                control.ForeColor = FicsitOrange;
+            }
+            else if (control is TextBox textBox)
+            {
+                textBox.BackColor = FicsitInput;
+                textBox.ForeColor = FicsitText;
+                textBox.BorderStyle = BorderStyle.FixedSingle;
+            }
+            else if (control is ComboBox comboBox)
+            {
+                comboBox.BackColor = FicsitInput;
+                comboBox.ForeColor = FicsitText;
+                comboBox.FlatStyle = FlatStyle.Flat;
+            }
+            else if (control is CheckBox checkBox)
+            {
+                checkBox.BackColor = FicsitPanel;
+                checkBox.ForeColor = FicsitText;
+            }
+            else if (control is TrackBar trackBar)
+            {
+                trackBar.BackColor = FicsitPanel;
+            }
+            else if (control is ProgressBar progress)
+            {
+                progress.BackColor = FicsitInput;
+            }
+            else if (control is Label label)
+            {
+                label.BackColor = Color.Transparent;
+                label.ForeColor = FicsitText;
+            }
+
+            foreach (Control child in control.Controls)
+            {
+                ApplyTheme(child);
+            }
+        }
+
+        private void StyleButton(Button button, bool primary)
+        {
+            button.BackColor = primary ? FicsitOrange : FicsitPanel;
+            button.ForeColor = primary ? FicsitInput : FicsitText;
+            button.FlatStyle = FlatStyle.Flat;
+            button.FlatAppearance.BorderSize = 1;
+            button.FlatAppearance.BorderColor = primary ? FicsitOrange : FicsitBorder;
+            button.FlatAppearance.MouseOverBackColor = primary ? Color.FromArgb(255, 158, 38) : Color.FromArgb(52, 56, 60);
+            button.FlatAppearance.MouseDownBackColor = primary ? Color.FromArgb(214, 104, 0) : Color.FromArgb(28, 30, 32);
+            button.Font = new Font("Segoe UI", 10F, primary ? FontStyle.Bold : FontStyle.Regular);
+            button.UseVisualStyleBackColor = false;
         }
 
         private void InitializeForm()
