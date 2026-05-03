@@ -1,0 +1,145 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-console:
+    name: Build Console App (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            rid: linux-x64
+            output: ADAVoiceConsole-Linux
+          - os: windows-latest
+            rid: win-x64
+            output: ADAVoiceConsole-Windows
+          - os: macos-latest
+            rid: osx-x64
+            output: ADAVoiceConsole-macOS
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Build Console App
+      run: |
+        dotnet publish ADAVoice.Console/ADAVoice.Console.csproj -c Release -r ${{ matrix.rid }} --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o publish/${{ matrix.output }}
+
+    - name: Create Archive (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        Compress-Archive -Path publish/${{ matrix.output }}/* -DestinationPath ${{ matrix.output }}.zip
+
+    - name: Create Archive (Unix)
+      if: matrix.os != 'windows-latest'
+      run: |
+        cd publish/${{ matrix.output }}
+        tar -czf ../../${{ matrix.output }}.tar.gz *
+
+    - name: Upload Artifact (Windows)
+      if: matrix.os == 'windows-latest'
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.output }}
+        path: ${{ matrix.output }}.zip
+
+    - name: Upload Artifact (Unix)
+      if: matrix.os != 'windows-latest'
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.output }}
+        path: ${{ matrix.output }}.tar.gz
+
+  build-ui:
+    name: Build UI App (Windows)
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Build UI App
+      run: |
+        dotnet publish ADAVoice.UI/ADAVoice.UI.csproj -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o publish/ADAVoiceUI-Windows
+
+    - name: Create Archive
+      run: |
+        Compress-Archive -Path publish/ADAVoiceUI-Windows/* -DestinationPath ADAVoiceUI-Windows.zip
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ADAVoiceUI-Windows
+        path: ADAVoiceUI-Windows.zip
+
+  release:
+    name: Create Release
+    needs: [build-console, build-ui]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Download Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          artifacts/ADAVoiceConsole-Windows.zip
+          artifacts/ADAVoiceConsole-Linux.tar.gz
+          artifacts/ADAVoiceConsole-macOS.tar.gz
+          artifacts/ADAVoiceUI-Windows.zip
+        draft: false
+        prerelease: false
+        generate_release_notes: true
+        body: |
+          ## ADA Voice Creator ${{ github.ref_name }}
+          
+          ### Downloads
+          - **Windows Console**: `ADAVoiceConsole-Windows.zip`
+          - **Linux Console**: `ADAVoiceConsole-Linux.tar.gz`
+          - **macOS Console**: `ADAVoiceConsole-macOS.tar.gz`
+          - **Windows UI**: `ADAVoiceUI-Windows.zip`
+          
+          ### Setup Instructions
+          1. Extract the archive for your platform
+          2. Copy `.env.sample` to `.env` in the same directory as the executable
+          3. Fill in your Google Cloud credentials:
+             ```
+             GOOGLE_CLOUD_PROJECT_ID=your-project-id
+             GOOGLE_APPLICATION_CREDENTIALS=path/to/your/credentials.json
+             ```
+          4. Run the executable
+          
+          ### Requirements
+          - Google Cloud account with Text-to-Speech API enabled
+          - Google Cloud service account credentials (JSON file)
+          - No .NET runtime required (self-contained builds)
+          
+          ### Credential Security
+          Your Google Cloud credentials are never bundled with the application. You must provide your own credentials file, and it never leaves your machine.
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
