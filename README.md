@@ -243,3 +243,44 @@ Google Cloud WaveNet pricing:
 ## License
 
 MIT License - see LICENSE file for details
+
+## VirusTotal False Positives
+
+**Why releases may trigger antivirus warnings:**
+
+The self-contained .NET executables in this project's releases may occasionally trigger false positives on virus scanners like VirusTotal. This is a known and common issue with self-contained .NET applications and does **not** indicate actual malware.
+
+**Technical reasons:**
+- **Large file size** (60-100MB+) - Bundling the entire .NET runtime triggers heuristic analysis about suspicious file sizes
+- **Embedded resources** - The .NET CLR, libraries, and dependencies are embedded as resources, which can appear similar to packing or obfuscation techniques used by malware
+- **Unsigned binaries** - The executables are not code-signed (requires paid certificate), making new executables suspicious to some antivirus engines
+- **Complex PE structure** - Self-contained .NET apps have an unusual structure compared to typical Windows executables
+- **Common dependencies** - Libraries like Google Cloud APIs, Newtonsoft JSON, and other widely-used components can trigger generic pattern matching
+
+**If you have concerns:**
+- The complete source code is available on GitHub for your review
+- You can build the application yourself using the provided build instructions
+- The project is open source under the MIT license
+- All dependencies are well-maintained, open-source, or official Google Cloud libraries
+
+**To build the application yourself:**
+```bash
+# Clone the repository
+git clone https://github.com/majormer/adavoicecreator.git
+cd adavoicecreator
+
+# Build the solution
+dotnet build
+
+# Run the console app
+dotnet run --project ADAVoice.Console
+
+# Run the UI app
+dotnet run --project ADAVoice.UI
+```
+
+**Verification:**
+- All code is publicly available on GitHub
+- Dependencies are listed in `.csproj` files
+- No obfuscation or packing is used beyond standard .NET compilation
+- The application only makes legitimate Google Cloud TTS API calls and file operations
