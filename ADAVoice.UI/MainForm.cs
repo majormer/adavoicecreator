@@ -72,8 +72,8 @@ namespace ADAVoice.UI
 
             // Form properties
             this.Text = "ADA Voice Creator";
-            this.Size = new Size(980, 760);
-            this.MinimumSize = new Size(900, 700);
+            this.Size = new Size(1080, 760);
+            this.MinimumSize = new Size(1000, 700);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = FicsitBackground;
             this.ForeColor = FicsitText;
@@ -96,7 +96,7 @@ namespace ADAVoice.UI
             {
                 Text = "Text Input",
                 Location = new Point(16, 16),
-                Size = new Size(932, 190),
+                Size = new Size(1032, 190),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
 
@@ -112,7 +112,7 @@ namespace ADAVoice.UI
                 Multiline = true,
                 ScrollBars = ScrollBars.Vertical,
                 Location = new Point(14, 50),
-                Size = new Size(904, 108),
+                Size = new Size(1004, 108),
                 Font = new Font("Segoe UI", 10F),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
@@ -137,14 +137,14 @@ namespace ADAVoice.UI
             {
                 Text = "Voice Settings",
                 Location = new Point(16, 218),
-                Size = new Size(430, 220),
+                Size = new Size(440, 220),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left
             };
 
             int y = 30;
             int labelX = 14;
             int controlX = 130;
-            int valueX = 365;
+            int valueX = 375;
             int rowHeight = 34;
 
             // Speaking Rate
@@ -192,7 +192,7 @@ namespace ADAVoice.UI
             {
                 DropDownStyle = ComboBoxStyle.DropDownList,
                 Location = new Point(controlX, y),
-                Size = new Size(270, 28)
+                Size = new Size(280, 28)
             };
             cmbVoice.Items.AddRange(new object[] {
                 "en-US-Wavenet-C (Female)",
@@ -219,15 +219,15 @@ namespace ADAVoice.UI
             grpOutput = new GroupBox
             {
                 Text = "Output Settings",
-                Location = new Point(458, 218),
-                Size = new Size(490, 220),
+                Location = new Point(470, 218),
+                Size = new Size(578, 220),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
 
             int y = 30;
             int labelX = 14;
             int controlX = 124;
-            int btnX = 394;
+            int btnX = 466;
             int rowHeight = 38;
 
             // Format
@@ -248,14 +248,14 @@ namespace ADAVoice.UI
             txtOutputFile = new TextBox
             {
                 Location = new Point(controlX, y),
-                Size = new Size(258, 28),
+                Size = new Size(330, 28),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
             btnBrowse = new Button
             {
                 Text = "Browse",
                 Location = new Point(btnX, y),
-                Size = new Size(82, 28),
+                Size = new Size(90, 28),
                 Anchor = AnchorStyles.Top | AnchorStyles.Right
             };
             btnBrowse.Click += BtnBrowse_Click;
@@ -268,14 +268,14 @@ namespace ADAVoice.UI
             {
                 Text = _outputDirectory,
                 Location = new Point(controlX, y),
-                Size = new Size(258, 28),
+                Size = new Size(330, 28),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
             btnBrowseDir = new Button
             {
                 Text = "Browse",
                 Location = new Point(btnX, y),
-                Size = new Size(82, 28),
+                Size = new Size(90, 28),
                 Anchor = AnchorStyles.Top | AnchorStyles.Right
             };
             btnBrowseDir.Click += BtnBrowseDir_Click;
@@ -340,7 +340,7 @@ namespace ADAVoice.UI
             btnSettings = new Button
             {
                 Text = "Settings",
-                Location = new Point(828, y),
+                Location = new Point(928, y),
                 Size = new Size(120, 42),
                 Anchor = AnchorStyles.Top | AnchorStyles.Right
             };
@@ -355,7 +355,7 @@ namespace ADAVoice.UI
             {
                 Text = "Status",
                 Location = new Point(16, 510),
-                Size = new Size(932, 190),
+                Size = new Size(1032, 190),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom
             };
 
@@ -369,7 +369,7 @@ namespace ADAVoice.UI
             progressBar = new ProgressBar
             {
                 Location = new Point(14, 62),
-                Size = new Size(904, 28),
+                Size = new Size(1004, 28),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
 
@@ -385,7 +385,7 @@ namespace ADAVoice.UI
             {
                 Text = "Last output: None",
                 Location = new Point(14, 134),
-                Size = new Size(904, 40),
+                Size = new Size(1004, 40),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom
             };
 
