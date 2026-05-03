@@ -99,7 +99,7 @@ static class Program
         
         // Forms
         services.AddSingleton<MainForm>();
-        services.AddSingleton<SettingsForm>();
-        services.AddSingleton<BatchForm>();
+        services.AddTransient<SettingsForm>();
+        services.AddTransient<BatchForm>();
     }
 }

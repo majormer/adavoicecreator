@@ -9,8 +9,7 @@ namespace ADAVoice.UI
     {
         private readonly ADAVoiceService _adaVoiceService;
         private readonly ILogger<MainForm> _logger;
-        private readonly SettingsForm _settingsForm;
-        private readonly BatchForm _batchForm;
+        private readonly IServiceProvider _serviceProvider;
         private readonly string _outputDirectory = "output";
         private static readonly Color FicsitBackground = Color.FromArgb(28, 30, 32);
         private static readonly Color FicsitPanel = Color.FromArgb(39, 42, 45);
@@ -49,14 +48,13 @@ namespace ADAVoice.UI
         private Label lblCostInfo = null!;
         private Label lblLastOutput = null!;
 
-        public MainForm(ADAVoiceService adaVoiceService, ILogger<MainForm> logger, SettingsForm settingsForm, BatchForm batchForm)
+        public MainForm(ADAVoiceService adaVoiceService, ILogger<MainForm> logger, IServiceProvider serviceProvider)
         {
             try
             {
                 _adaVoiceService = adaVoiceService;
                 _logger = logger;
-                _settingsForm = settingsForm;
-                _batchForm = batchForm;
+                _serviceProvider = serviceProvider;
                 
                 InitializeComponent();
                 InitializeForm();
@@ -613,12 +611,14 @@ namespace ADAVoice.UI
 
         private void BtnBatch_Click(object? sender, EventArgs e)
         {
-            _batchForm.ShowDialog();
+            var batchForm = _serviceProvider.GetRequiredService<BatchForm>();
+            batchForm.ShowDialog();
         }
 
         private void BtnSettings_Click(object? sender, EventArgs e)
         {
-            _settingsForm.ShowDialog();
+            var settingsForm = _serviceProvider.GetRequiredService<SettingsForm>();
+            settingsForm.ShowDialog();
         }
 
         private void SetUIState(bool enabled)
