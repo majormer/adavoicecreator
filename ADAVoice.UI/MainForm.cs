@@ -227,7 +227,7 @@ namespace ADAVoice.UI
             int y = 30;
             int labelX = 14;
             int controlX = 124;
-            int btnX = 430;
+            int btnX = 394;
             int rowHeight = 38;
 
             // Format
@@ -248,14 +248,14 @@ namespace ADAVoice.UI
             txtOutputFile = new TextBox
             {
                 Location = new Point(controlX, y),
-                Size = new Size(294, 28),
+                Size = new Size(258, 28),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
             btnBrowse = new Button
             {
-                Text = "...",
+                Text = "Browse",
                 Location = new Point(btnX, y),
-                Size = new Size(42, 28),
+                Size = new Size(82, 28),
                 Anchor = AnchorStyles.Top | AnchorStyles.Right
             };
             btnBrowse.Click += BtnBrowse_Click;
@@ -268,14 +268,14 @@ namespace ADAVoice.UI
             {
                 Text = _outputDirectory,
                 Location = new Point(controlX, y),
-                Size = new Size(294, 28),
+                Size = new Size(258, 28),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
             btnBrowseDir = new Button
             {
-                Text = "...",
+                Text = "Browse",
                 Location = new Point(btnX, y),
-                Size = new Size(42, 28),
+                Size = new Size(82, 28),
                 Anchor = AnchorStyles.Top | AnchorStyles.Right
             };
             btnBrowseDir.Click += BtnBrowseDir_Click;
@@ -368,7 +368,7 @@ namespace ADAVoice.UI
 
             progressBar = new ProgressBar
             {
-                Location = new Point(10, 45),
+                Location = new Point(14, 62),
                 Size = new Size(904, 28),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
@@ -376,7 +376,7 @@ namespace ADAVoice.UI
             lblCostInfo = new Label
             {
                 Text = "Cost: $0.000000",
-                Location = new Point(14, 86),
+                Location = new Point(14, 104),
                 AutoSize = true,
                 Font = new Font("Segoe UI", 10F, FontStyle.Bold)
             };
@@ -384,8 +384,8 @@ namespace ADAVoice.UI
             lblLastOutput = new Label
             {
                 Text = "Last output: None",
-                Location = new Point(14, 116),
-                Size = new Size(904, 58),
+                Location = new Point(14, 134),
+                Size = new Size(904, 40),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom
             };
 
