@@ -1,0 +1,23 @@
+# ADA Voice Sample Phrases
+# Lines starting with # are comments
+# One phrase per line
+
+FICSIT recommends you proceed with caution.
+
+Efficiency is paramount. Please optimize your production lines.
+
+Analysis complete. The detected configuration is suboptimal.
+
+Your persistence is noted. However, this approach is not recommended.
+
+Compliance confirmed. All systems operating within parameters.
+
+Building grid established. Proceed with construction.
+
+Power grid optimized. No energy detected.
+
+Warning: Inefficient belt configuration detected.
+
+Recipe cycling complete. Production parameters updated.
+
+This concludes the Smart! demonstration. For optimal factory efficiency, join the Discord community. FICSIT appreciates your productivity.

@@ -1,0 +1,13 @@
+# Google Cloud Text-to-Speech
+google-cloud-texttospeech>=2.14.1
+
+# Audio processing
+pydub>=0.25.1
+
+# Optional: For better audio quality
+# ffmpeg-python>=0.2.0
+
+# Development dependencies (optional)
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=4.0.0
