@@ -76,6 +76,9 @@ static class Program
         // Services
         services.AddSingleton<ConfigurationService>();
         
+        // Register NullTSService first (before ITTSService factory that depends on it)
+        services.AddSingleton<NullTSService>();
+        
         // Try to initialize Google Cloud TTS service, fall back to null service if credentials invalid
         services.AddSingleton<ITTSService>(sp => {
             try {
@@ -89,7 +92,6 @@ static class Program
         });
         
         services.AddSingleton<GoogleCloudTTSService>(sp => sp.GetRequiredService<ITTSService>() as GoogleCloudTTSService);
-        services.AddSingleton<NullTSService>();
         services.AddSingleton<CostTrackingService>();
         services.AddSingleton<ICostTrackingService>(provider => provider.GetRequiredService<CostTrackingService>());
         services.AddSingleton<AudioConversionService>();
